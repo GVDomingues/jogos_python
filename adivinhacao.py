@@ -53,3 +53,6 @@ def jogar():
         pontuacao = int(pontuacao-erro)
     print(f"O número secreto era {numero_secreto}")
     print("Fim do jogo!")
+
+if(__name__ == "__main__"):
+    jogar()
