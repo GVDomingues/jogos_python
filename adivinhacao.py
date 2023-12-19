@@ -1,25 +1,38 @@
 print("***********************************")
-print("Bem vindo no jogo de adivinhação!")
+print("*Bem vindo no jogo de adivinhação!*")
 print("***********************************\n")
 
-numero_secreto = 23
-total_de_tentativas_str = input("Qual dificuldade você deseja? \n1- Fácil \n2- Médio \n3- Difícil \n \nDificuldade: ")
-if(total_de_tentativas_str == "Fácil"):
-    total_de_tentativas = 10
-elif(total_de_tentativas_str == "Médio"):
-    total_de_tentativas = 7
-elif(total_de_tentativas_str == "Difícil"):
-    total_de_tentativas = 5
-else:
-    print("Digite uma dificuldade válida")
+import random
+numero_secreto = random.randrange(1, 100)
+pontuacao = 1000
 
-print("\nVocê tem ", total_de_tentativas, " tentativas \n")
+while True: #definir quantidade de tentativas
+    total_de_tentativas_str = input("Qual dificuldade você deseja? \n1- Fácil \n2- Médio \n3- Difícil \n \nDificuldade: ")
+    if total_de_tentativas_str.lower() in ["1", "facil", "fácil"]:
+        total_de_tentativas = 10
+        break
+    if total_de_tentativas_str.lower() in ["2", "medio", "médio"]:
+        total_de_tentativas = 7
+        break
+    if total_de_tentativas_str.lower() in ["3", "dificil", "difícil"]:
+        total_de_tentativas = 5
+        break
+    else:
+        print("Digite uma dificuldade válida\n")
+
+erro = int(pontuacao/total_de_tentativas)
+
+print("\nVocê tem ", total_de_tentativas, " tentativas")
 tentativas = 1
 
 while(tentativas <= total_de_tentativas):
-    print("Tentativa: {} de {}".format(tentativas, total_de_tentativas))
-    chute_str = input("Digite sua tentativa: ")
+    print("\nTentativa: {} de {} \nVocê tem {} pontos".format(tentativas, total_de_tentativas, pontuacao))
+    chute_str = input("\n Digite um número de 1 a 99: ")
     chute = int(chute_str)
+
+    if(chute < 1) or (chute > 99):
+        print("Digite um número válido")
+        continue
 
     acertou = chute == numero_secreto
     maior   = chute > numero_secreto
@@ -36,4 +49,6 @@ while(tentativas <= total_de_tentativas):
             print("Você errou! O número digitado é menor do que o número secreto")
 
     tentativas = tentativas + 1
+    pontuacao = int(pontuacao-erro)
+print(f"O número secreto era {numero_secreto}")
 print("Fim do jogo!")
